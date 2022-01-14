@@ -12,7 +12,8 @@ dotenv.config()
 const host = process.env.HOST
 const port = process.env.PORT
 
-
+const uuidv4 = require('uuid').v4
+let users = {}
 
 app.get('/', (req, res) => {
     res.render('index.ejs')
