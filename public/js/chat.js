@@ -127,14 +127,24 @@ $(() => {
         }
     })
     $('#logout').on('click',()=>{
+        socket.emit('logout')
+        user = {}
+
         chatArea.hide()
         loginArea.fadeIn(FADE_TIME)
+    })
+    socket.on('user_left', (data) => {
+        users = data.users
+        let message = data.user.name + 'が退出しました'
+        addMessage(message)
+        updateUserList()
     })
     $('#send').on('click',() => {
         socket.emit('message',{
             message: message.val(),
             user: user,
         })
+        message.val() = ''
     })
 
     //受信
