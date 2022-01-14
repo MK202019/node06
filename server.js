@@ -45,6 +45,26 @@ io.on('connection', (socket) => {
         data.datetime = Date.now()
         io.emit('message', data)
     })
+
+    const logout = (socket) => {
+        //ユーザ一覧からIDでユーザ取得
+        const user = users[socket.id]
+        //ユーザ一覧から削除
+        delete users[socket.id]
+        //ログアウトユーザ以外に通知
+        socket.broadcast.emit('user_left', {
+            user: user,
+            users: users,
+        })
+    }
+
+    socket.on('logout', () => {
+        logout(socket)
+    })
+    socket.on('disconnect', () => {
+        console.log('disconnect')
+        logout(socket)
+    })
 })
 
 http.listen(port, host, () => {
