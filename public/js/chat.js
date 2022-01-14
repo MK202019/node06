@@ -186,7 +186,11 @@ $(() => {
             socket.emit('upload_stamp', data)
 
             stampList.toggle()
-            
+
         }
+    })
+
+    socket.on('load_stamp',(data) => {
+        createChatMessage(data, {width: STAMP_WIDTH})
     })
 })
