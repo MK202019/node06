@@ -208,4 +208,8 @@ $(() => {
             $('.uploadImage').val() = ''
         }
     })
+
+    socket.on('load_image', (data)=>{
+        createChatImage(data, {width:IMAGE_WIDTH})
+    })
 })
